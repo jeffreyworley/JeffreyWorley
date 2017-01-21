@@ -1,0 +1,124 @@
+@charset "UTF-8";
+/* This is a comment! Text here will be ignored by the browser. */
+body {
+     height: 100%;
+     width: 100%;
+     color: #000;
+     margin: 0;
+}
+
+a:link {
+    color: #0099ff;
+
+}
+a:visited {
+     color: #0000ff;
+}
+a:hover, a:active, a:focus { 
+    /* text-decoration: underline; */
+}
+.homePage {
+	background-image: url(Images/TessalatedWebsiteHead2.jpg);
+}
+
+.header {
+	background: #474444;
+	word-wrap: break-word;
+	text-align: center;
+	position: relative;
+	width: 100%;
+	height: auto;
+	color: #FFF;
+	overflow: auto;
+}
+
+.headerimage{
+	float: left;
+	position: relative;
+	width: 5%;
+	min-width: 75px;
+}
+
+.headercontent{
+	width: 90%;
+	position: relative;
+	margin: 1.25% auto 0 auto;
+
+}
+
+.mainpage{
+	width: 890px;
+	margin: 2.5% auto 10% auto;
+	padding: 0;
+	position: relative;
+}
+.circleContainer{
+	margin-bottom: 10%;
+	float: left;
+	position: relative;
+	width: 100%;
+}
+
+.circle {
+	position: relative;
+	float: left;
+	margin: 1%;
+	width: 275px;
+	height: auto;
+	border-radius: 50%;
+}
+
+.footer {
+	
+	position: fixed;
+	bottom: 0;
+	color: #FFF;
+	background: #474444;
+	float: center;
+	width: 100%;
+	height: auto%;
+	text-align: center;
+}
+
+.headPicture{
+	float: left;
+	width: 5%;
+	height: auto;
+	min-width: 75px;
+	min-height: 75px;
+	border-radius: 50%;
+	
+}
+
+.researchlink{
+	width: 35%;
+	height: auto;
+}
+
+.content{
+	text-align: center;
+	background-color: #FFFFFF;
+	padding-left: 25px;
+	border-radius: 15px;
+	padding: 5px 25px;
+	margin: 15px;
+}
+.downloadlink{
+	margin: 2.5% auto 4% auto;
+	width: 150px;
+}
+
+h1{
+	font-size: 1.25em;
+	margin: 0;
+}
+
+h3{
+	margin: 0;
+	margin margin-bottom: 2.5%;
+}
+
+
+.orange{
+	color: #ff7e0c
+}

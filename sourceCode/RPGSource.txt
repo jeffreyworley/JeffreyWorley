@@ -1,0 +1,376 @@
+/*
+ Jeffrey Worley this by itself will not run. Please download the files at the bottom of the page to get the files required for this application to run.
+ */
+#include <iostream>
+#include <cstring>
+#include <vector>
+#include "getInfo.h"
+
+
+// this is a class with a bunch of methods
+
+class Player {
+public:
+    Player(std::string tempName, int tempAge, int tempHealth, std::string tempJob);
+    
+    ///////////////////// get methods ///////////////////////////////////////////////////////////////////////////////
+        void getName(std::string tempNameChange){
+        name = tempNameChange;
+    }
+    
+    void getAge(int tempAgeChange){
+        age = tempAgeChange;
+    }
+    
+    void getJob(std::string tempJobChange){
+        job = tempJobChange;
+    }
+    
+    void getDirection(std::string tempDirectionChange){
+        direction = tempDirectionChange;
+    }
+    
+    void getBackPackSize(int tempBackPackSizeChange){
+        backPackSize = tempBackPackSizeChange;
+    }
+    
+    ///////////////////// print methods ///////////////////////////////////////////////////////////////////////////////
+    
+    int printAge() {
+        return age;
+    }
+    
+    int printHealth(){
+        return health;
+    }
+    
+    std::string printName(){
+        return name;
+    }
+    
+    std::string printJob(){
+        return job;
+    }
+    
+    std::string printDirection(){
+        return direction;
+    }
+    
+    int printBackPackSize(){
+        return backPackSize;
+    }
+    
+    ///////////////////// health methods ///////////////////////////////////////////////////////////////////////////////
+    
+    void addHealth(int tempAdd){
+        health = (health + tempAdd);
+    }
+    
+    void subtractHealth(int damage){
+        health = (health - damage);
+    }
+    
+    ///////////////////// backpack methods ///////////////////////////////////////////////////////////////////////////////
+    
+    void addToBackPack(std::string itemToHave){
+        
+        std::string wouldLikeToPickUp = getInfo_tolower("Would you like to pick up this item? y/n\n");
+        if(wouldLikeToPickUp == "y"){
+            if(backPackSize > 0){
+                backPackContents.emplace_back(itemToHave);
+                std::cout << "you have added " << itemToHave << " to your backpack" << std::endl;
+                backPackSize -= 1;
+            }else {
+                std::cout << "you can not pick that up. Your bag is full" << std::endl;
+                pickUpResponse = getInfo_tolower("would you like to drop an item? y/n\n");
+                if(pickUpResponse == "y"){
+                    std::cout << "these are the items currently in your bag." << std::endl;
+                    
+                    for (std::vector<std::string>::const_iterator i = backPackContents.begin(); i != backPackContents.end(); ++i){
+                        std::cout << *i << "\n";
+                    }
+                    
+                    std::string removeResponse = getInfo_tolower("type in the name of the item you would like to remove\n");
+                    int fooAddToBackPack = 1;
+                    
+                    while(fooAddToBackPack == 1){
+                        if(std::find(backPackContents.begin(), backPackContents.end(), removeResponse) != backPackContents.end()){
+                            backPackContents.erase(std::remove(backPackContents.begin(), backPackContents.end(), removeResponse), backPackContents.end());
+                            backPackContents.emplace_back(itemToHave);
+                            
+                            std::cout << removeResponse << " has been removed from your backpack. " << itemToHave << " has been added to your backpack." << std::endl;
+                            
+                            fooAddToBackPack = 0;
+                            
+                        } else{
+                            std::cout << "please type in the exact name of the item you want to remove" << std::endl;
+                        }
+                    }
+                    
+                } else if(pickUpResponse == "n"){
+                    
+                    std::cout << "no items were picked up and none were dropped" << std::endl;
+                }
+                
+            }
+        }else {
+            std::cout << itemToHave << " was not picked up" << std::endl;
+        }
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    bool wasAddedToBackPack(std::string tempWasAdded){
+        if(std::find(backPackContents.begin(), backPackContents.end(), tempWasAdded) != backPackContents.end()){
+            return true;
+        } else{
+            return false;
+        }
+    }
+    
+private:
+    
+    std::string name;
+    std::string job;
+    std::string direction;
+    std::string pickUpResponse;
+    int age;
+    int health;
+    int backPackSize = 1;
+    std::vector<std::string> backPackContents;
+    
+    
+    
+};
+
+
+Player::Player(std::string tempName, int tempAge, int tempHealth, std::string tempJob) {
+    name = tempName;
+    age = tempAge;
+    health = tempHealth;
+    job = tempJob;
+    backPackContents.emplace_back("water bottle");
+    backPackSize -= 1;
+}
+
+/*
+ Jeffrey Worley
+ */
+
+/* 
+ Jeffrey Worley
+ */
+
+#include <iostream>
+#include <cstring>
+
+class Villain {
+public:
+    void printInfo(){
+        std::cout << "you are fighting against " << name << ". It's a " << vilClass << " who will do " << damage << " damage per hit." << std::endl;
+    }
+    
+    Villain(std::string tempName, std::string tempClass, int tempDamage);
+
+private:
+    std::string name;
+    std::string vilClass;
+    int damage;
+};
+
+Villain::Villain(std::string tempName, std::string tempClass, int tempDamage){
+    name = tempName;
+    vilClass = tempClass;
+    damage = tempDamage;
+}
+
+/*
+ Jeffrey worley
+*/
+
+//
+//  getInfo.h
+//  games
+//
+//  Created by jeff on 5/10/15.
+//  Copyright (c) 2015 jeff. All rights reserved.
+//
+
+
+
+std::string a ="";
+std::string b = "";
+
+std::string getInfo_tolower(std::string whatToSay) {
+    a = "";
+    b = "";
+    std::cout << whatToSay;
+    getline(std::cin, a);
+    std::transform(a.begin(), a.end(), a.begin(), ::tolower);
+    
+    return a;
+    
+};
+
+//input what is being said and takes input and puts it to upper case
+std::string getInfo_toUpper(std::string whatToSay){
+    std::cout << whatToSay << std::endl;
+    a = "";
+    b = "";
+    getline(std::cin, a);
+    
+    for(int i = 0; i < a.length(); i++){
+        a[i] = putchar(toupper(a[i]));
+        b[i] = a[i];
+    }
+    
+    return b;
+};
+
+//input what is being said and takes input and leaves it as it is
+std::string getInfo(std::string whatToSay){
+    std::cout << whatToSay << std::endl;
+    a = "";
+    getline(std::cin, a);
+    return a;
+};
+
+//input what is being said and takes in an int input
+float getInfo_Int(std::string whatToSay){
+    std::cout << whatToSay << std::endl;
+    float getInfo_Int_a;
+    std::cin >> getInfo_Int_a;
+    return getInfo_Int_a;
+};
+
+//
+//  Weapon.h
+//  games
+//
+//  Created by jeff on 5/10/15.
+//  Copyright (c) 2015 jeff. All rights reserved.
+//
+
+#include <iostream>
+#include <cstring>
+
+class Weapon{
+public:
+    
+    Weapon(std::string tempName, int tempdamage, bool tempPlayerPossesion);
+    
+    void getName(std::string tempNameChange){
+        name = tempNameChange;
+    }
+    
+    void getDamage(int tempDamageChange){
+        damage = tempDamageChange;
+    }
+    
+    void getPlayerPossesion(bool tempPlayerPossesionChange){
+        playerPossesion = tempPlayerPossesionChange;
+    }
+    
+    int printDamage(){
+        return damage;
+    }
+    
+    std::string printName(){
+        return name;
+    }
+    
+    bool printPlayerPossesion(){
+        return playerPossesion;
+    }
+    
+    
+    
+private:
+    std::string name;
+    int damage;
+    bool playerPossesion;
+    
+};
+
+Weapon::Weapon(std::string tempName, int tempDamage, bool tempPlayerPossesion){
+    name = tempName;
+    damage = tempDamage;
+    playerPossesion = tempPlayerPossesion;
+    
+}
+
+//
+//  main.cpp
+//  sldkgj;sdlfgjk
+//
+//  Created by WORLEY, JEFFREY on 4/27/15.
+//  Copyright (c) 2015 WORLEY, JEFFREY. All rights reserved.
+//
+
+#include <iostream>
+#include <cstring>
+#include "Villain.h"
+#include "Player.h"
+#include "Weapon.h"
+
+
+
+
+int main(int argc, const char * argv[]) {
+    
+    Player p1((getInfo("What is your name?")), getInfo_Int("How old are you?"), 50, getInfo_tolower(""));
+    std::string job1 = getInfo_tolower("Were you a \n \t Doctor? \n \t Farmer? \n \t or Athlete?\n");
+    
+    p1.getJob(job1);
+    
+    while(job1 != "doctor" && job1 != "farmer" && job1 != "athlete"){
+        p1.getJob(getInfo_tolower("Invalid input. Please respond with Doctor, Farmer, or Athlete\n"));
+    }
+    
+    std::cout << "You are " << p1.printName() << ". You were a " << p1.printJob() << ". You are " << p1.printAge() << " years old." << std::endl;
+    
+    std::string hello = getInfo_tolower("Is this info correct? y/n\n");
+    
+    while(hello != "y"){
+        
+        p1.getName(getInfo("What is your name?"));
+        p1.getAge(getInfo_Int("How old are you"));
+        std::string throwaway1 = getInfo_tolower("");
+        p1.getJob(getInfo_tolower("Were you a \n \t Doctor? \n \t Farmer? \n \t Athlete?\n"));
+        
+        std::cout << "You are " << p1.printName() << ". You were a " << p1.printJob() << ". You are " << p1.printAge() << " years old." << std::endl;
+        
+        hello = getInfo_tolower("is this info correct? y/n\n");
+    }
+    
+    p1.getDirection(getInfo_tolower("you find youself at an intersection. do you go left, straight, or right? r/s/l\n"));
+    
+    Weapon bloodyAxe("BloodyAxe", 15, false);
+    
+    int foo1 = 1;
+    while(foo1 == 1){
+        
+        if(p1.printDirection() == "r"){
+            std::cout << "you turned right" << std::endl;
+            std::cout << "you have found a " << bloodyAxe.printName() << "." << std::endl;
+            p1.addToBackPack("bloodyAxe");
+            bloodyAxe.getPlayerPossesion(p1.wasAddedToBackPack("bloodyAxe"));
+            
+            foo1 = 0;
+        }else if(p1.printDirection() == "s"){
+            std::cout << "you went straight" << std::endl;
+            std::cout << "there's nothing here. You should start over. Next time I would reccomend going right." << std::endl;
+            foo1 = 0;
+        }else if(p1.printDirection() == "l"){
+            std::cout << "you turned left" << std::endl;
+            std::cout << "there's nothing here. You should start over. Next time I would reccomend going right." << std::endl;
+            foo1 = 0;
+        }else{
+            p1.getDirection(getInfo_tolower("input invalid. Please respond l or s or r\n"));
+        }
+    }
+    
+    return 0;
+}
+
+
